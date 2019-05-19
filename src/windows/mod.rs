@@ -15,7 +15,7 @@ use winapi::ctypes::c_void;
 
 use std::ptr;
 use std::mem;
-use std::ffi::{CStr, OsString};
+use std::ffi::{OsStr, OsString};
 use std::marker::PhantomData;
 use std::usize;
 
@@ -29,7 +29,7 @@ impl<'a> SegmentTrait for Segment<'a> {
     type SharedLibrary = ::windows::SharedLibrary<'a>;
 
     #[inline]
-    fn name(&self) -> &CStr {
+    fn name(&self) -> &OsStr {
         unreachable!()
     }
 
@@ -74,7 +74,7 @@ impl<'a> SharedLibraryTrait for SharedLibrary<'a> {
     type SegmentIter = SegmentIter<'a>;
 
     #[inline]
-    fn name(&self) -> &CStr {
+    fn name(&self) -> &OsStr {
         unreachable!()
     }
 
