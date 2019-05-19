@@ -86,6 +86,9 @@ extern crate lazy_static;
 #[cfg(target_os = "linux")]
 extern crate libc;
 
+#[cfg(target_os = "windows")]
+extern crate winapi;
+
 use std::ffi::CStr;
 use std::fmt::{self, Debug};
 use std::ptr;
@@ -111,6 +114,17 @@ cfg_if!(
         /// The [`SharedLibrary` trait](./trait.SharedLibrary.html)
         /// implementation for the target operating system.
         pub type TargetSharedLibrary<'a> = macos::SharedLibrary<'a>;
+
+        /// An indicator if this platform is supported.
+        pub const TARGET_SUPPORTED: bool = true;
+
+    } else if #[cfg(target_os = "windows")] {
+
+        pub mod windows;
+
+        /// The [`SharedLibrary` trait](./trait.SharedLibrary.html)
+        /// implementation for the target operating system.
+        pub type TargetSharedLibrary<'a> = windows::SharedLibrary<'a>;
 
         /// An indicator if this platform is supported.
         pub const TARGET_SUPPORTED: bool = true;
